@@ -13,22 +13,33 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
-
+      contents: read
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
-
+      
       - name: Build with dotnet
         run: dotnet build --configuration Release
-
+      
       - name: dotnet publish
         run: dotnet publish -c Release -o ./published
-
+      
+      # Add this debug step
+      - name: List published files
+        run: |
+          echo "Checking if published directory exists..."
+          if (Test-Path "./published") {
+            echo "Published directory exists. Contents:"
+            Get-ChildItem "./published" -Recurse
+          } else {
+            echo "Published directory does not exist!"
+            exit 1
+          }
+        shell: powershell
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:

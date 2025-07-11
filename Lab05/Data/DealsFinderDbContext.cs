@@ -6,8 +6,7 @@ namespace Lab05.Data
     public class DealsFinderDbContext : DbContext
     {
         //constructor
-        public DealsFinderDbContext(DbContextOptions<DealsFinderDbContext> options)
-            : base(options)
+        public DealsFinderDbContext(DbContextOptions<DealsFinderDbContext> options) : base(options)
         {
         }
 

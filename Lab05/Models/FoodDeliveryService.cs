@@ -19,10 +19,8 @@ namespace Lab05.Models
         [Column(TypeName = "money")]
         public decimal Fee { get; set; }
 
-        // Navigation property: list of subscriptions associated with this service
         public ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
 
-        // Convenience property to get subscribed customers directly
         [NotMapped]
         public IEnumerable<Customer> SubscribedCustomers => 
             Subscriptions != null ? 
